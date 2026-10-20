@@ -9,6 +9,8 @@ html = (root / 'index.html').read_text(encoding='utf-8')
 css = (root / 'src/style.css').read_text(encoding='utf-8')
 css = re.sub(r"@import\s+url\([^;]+;\s*", '', css)
 js = (root / 'src/game.js').read_text(encoding='utf-8')
+for source in ['retro-data.js', 'retro-world.js']:
+    html = html.replace(f'<script src="/src/{source}"></script>', '<script>\n' + (root / 'src' / source).read_text(encoding='utf-8') + '\n</script>')
 html = html.replace('<link rel="stylesheet" href="/src/style.css">', '<style>\n' + css + '\n</style>')
 html = html.replace('<script type="module" src="/src/game.js"></script>', '<script>\n' + js + '\n</script>')
 html = html.replace('href="/"', 'href="./JOUER.html"')
@@ -29,13 +31,14 @@ COMMANDES
 - Ramasser les cristaux pour gagner de l'expérience.
 - Souris ou touches 1, 2, 3 : choisir une amélioration.
 - Espace ou Échap : mettre en pause / reprendre.
+- Map : le zaap d’Astrub [4, -19].
 - Survivre 10 minutes puis vaincre le Bouftou Royal pour gagner.
 
 Les records sont conservés si le navigateur autorise le stockage local pour
 les fichiers ouverts sur votre ordinateur. Sinon, le jeu reste jouable.
 
-Prototype pour ordinateur : visuels originaux temporaires, sans sons ni
-commandes tactiles. Fan game non officiel.
+Prototype pour ordinateur : graphismes extraits du client Dofus 1.29.1, sans sons ni
+commandes tactiles. Fan game non officiel ; graphismes Ankama.
 
 DÉVELOPPEMENT (FACULTATIF)
 Le dossier « sources » contient le code modifiable.
@@ -45,7 +48,10 @@ puis lancer npm start. Aucune dépendance npm à installer.
 with ZipFile(output, 'w', ZIP_DEFLATED) as archive:
     archive.writestr('dofus-survivor/JOUER.html', html)
     archive.writestr('dofus-survivor/LIRE-MOI.txt', instructions)
-    for name in ['index.html', 'package.json', 'server.mjs', 'README.md', 'src/game.js', 'src/style.css', 'scripts/package.py']:
+    for name in ['index.html', 'package.json', 'server.mjs', 'README.md', 'src/game.js', 'src/style.css', 'src/retro-world.js', 'src/retro-data.js', 'scripts/package.py', 'scripts/ExportRetro.java', 'scripts/prepare-retro.py', 'docs/retro-assets.md']:
         archive.write(root / name, 'dofus-survivor/sources/' + name)
+    for asset in sorted((root / 'assets').rglob('*')):
+        if asset.is_file():
+            archive.write(asset, 'dofus-survivor/sources/' + str(asset.relative_to(root)))
 print(output)
 print(f'{output.stat().st_size} octets')

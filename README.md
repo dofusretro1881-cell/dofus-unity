@@ -1,6 +1,6 @@
 # Dofus Survivor
 
-Prototype navigateur d’un fan game non officiel : un Sram survit dans les champs d’Astrub face aux Pious, Bouftous, larves et tournesols. Les dessins sont des visuels temporaires originaux réalisés avec Canvas, sans ressources officielles.
+Prototype navigateur d’un fan game non officiel : un Sram survit au zaap d’Astrub face aux Pious, Bouftous, larves et tournesols. Le décor du zaap [4, −19] et les sprites animés sont extraits du client Dofus 1.29.1 archivé par Dofedex. Les sources et détails de conversion sont documentés dans [docs/retro-assets.md](docs/retro-assets.md).
 
 ## Jouer sans installation
 

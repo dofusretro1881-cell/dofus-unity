@@ -1,1 +1,11 @@
-{"name":"dofus-survivor","version":"0.1.0","private":true,"type":"module","scripts":{"dev":"node server.mjs","start":"node server.mjs","check":"node --check src/game.js && node --check server.mjs"}}
+{
+  "name": "dofus-survivor",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node server.mjs",
+    "start": "node server.mjs",
+    "check": "node --check src/game.js && node --check src/retro-world.js && node --check src/retro-data.js && node --check server.mjs"
+  }
+}
